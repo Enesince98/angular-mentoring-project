@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { PostPageComponent } from '../post-page/post-page.component';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { SharedRoutingModule } from './shared.routing.module';
+import { PostComponent } from './components/post/post.component';
 
 
 
@@ -11,11 +12,16 @@ import { SharedRoutingModule } from './shared.routing.module';
   declarations: [
     MainLayoutComponent,
     PostPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    PostComponent,
   ],
   imports: [
     CommonModule,
     SharedRoutingModule
+  ],
+  exports: [
+    PostComponent,
   ]
+
 })
 export class SharedModule { }

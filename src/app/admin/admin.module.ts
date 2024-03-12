@@ -5,7 +5,7 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 
 
@@ -19,7 +19,7 @@ import { AdminRoutingModule } from './admin-routing.module';
     AdminLayoutComponent
   ],
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     AdminRoutingModule
   ]

@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   private isAuthenticatedValue: boolean = false;
-  constructor() { }
   login(username: string, password: string): boolean {
     if (username === 'admin' && password === 'admin') {
       this.isAuthenticatedValue = true;
