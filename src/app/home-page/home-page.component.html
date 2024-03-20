@@ -1,0 +1,10 @@
+<div class="home-page">
+  <h2 class="home-page__title">Welcome to Our Home Page!</h2>
+  <div class="post-list">
+    <div *ngIf="posts$ | async as posts">
+      <div *ngFor="let post of posts" class="post">
+        <app-post [post]="post" />
+      </div>
+    </div>
+  </div>
+</div>
