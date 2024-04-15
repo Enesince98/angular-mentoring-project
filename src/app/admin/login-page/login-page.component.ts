@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TitleService } from 'src/app/services/title.service';
@@ -12,24 +12,32 @@ import { TitleService } from 'src/app/services/title.service';
 })
 export class LoginPageComponent implements OnInit {
   private authService = inject(AuthService);
-  private router = inject(Router);
-  private formBuilder = inject(FormBuilder);
+  private formBuilder = inject(NonNullableFormBuilder);
   private titleService = inject(TitleService);
+  private router = inject(Router);
+  authError$ = this.authService.authError$;
+  isAuthenticated$ = this.authService.isAuthenticated$;
   ngOnInit(): void {
     this.titleService.setTitle("Login Page");
+    this.isAuthenticated$.subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.router.navigate(['admin', 'dashboard'])
+        console.log("AAAAAAAAAAAAAAAA")
+      }
+    });
   }
   loginForm = this.formBuilder.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]]
   });
   login(): void {
-    if (this.loginForm.value.username && this.loginForm.value.password) {
-      if (this.authService.login(this.loginForm.value.username, this.loginForm.value.password)) {
-        this.router.navigate(['admin', 'dashboard']);
-      } else {
-        console.log('Invalid username or password');
-      }
+    if (this.loginForm.valid && this.loginForm.value.email && this.loginForm.value.password) {
+      this.authService.logMeIn(this.loginForm.value.email, this.loginForm.value.password)
     }
 
+  }
+
+  logout() {
+    this.authService.logMeOut();
   }
 }

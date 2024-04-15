@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth.guard';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
-
+import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 const routes: Routes = [
   {
     path: '',
@@ -17,17 +16,20 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardPageComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { authGuardPipe: redirectUnauthorizedTo(['admin', 'login  ']) }
       },
       {
         path: 'create',
         component: CreatePageComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { authGuardPipe: redirectUnauthorizedTo(['admin', 'login  ']) }
       },
       {
         path: 'edit/:id',
         component: EditPageComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { authGuardPipe: redirectUnauthorizedTo(['admin', 'login  ']) }
       },
     ]
   }

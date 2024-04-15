@@ -7,6 +7,12 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
+import { AuthGuard, AuthGuardModule } from '@angular/fire/auth-guard';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+import { AuthModule } from '@angular/fire/auth';
+import { FirebaseApp } from '@angular/fire/app';
 
 
 
@@ -21,7 +27,14 @@ import { AdminRoutingModule } from './admin-routing.module';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AuthGuardModule,
+
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class AdminModule { }
